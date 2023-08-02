@@ -6,5 +6,9 @@ const app = express()
 const httpServer = http.createServer(app)
 const io = new SocketServer(httpServer)
 
-httpServer.listen(4000)
-console.log('Server on Port', 4000)
+io.on('connection', socket => {
+    console.log('Client Connected')
+})
+
+httpServer.listen(3000)
+console.log('Server on Port', 3000)
