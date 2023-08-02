@@ -4,7 +4,11 @@ import { Server as SocketServer } from "socket.io";
 
 const app = express()
 const httpServer = http.createServer(app)
-const io = new SocketServer(httpServer)
+const io = new SocketServer(httpServer, {
+    cors: {
+        origin: "http://localhost:5173"
+    }
+})
 
 io.on('connection', socket => {
     console.log('Client Connected')
