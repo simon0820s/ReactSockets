@@ -11,6 +11,7 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    myForm.reset()
 
     const newMessage = {
       body: message,
@@ -32,7 +33,7 @@ export default function App() {
 
   return (
     <div className='h-screen bg-zinc-800 text-neutral-100 flex items-center justify-center'>
-      <form onSubmit={handleSubmit} className='bg-zinc-900 p-10 flex flex-col gap-2 rounded-xl'>
+      <form id='myForm' onSubmit={handleSubmit} className='bg-zinc-900 p-10 flex flex-col gap-2 rounded-xl'>
         <h1 className='text-2xl font-bold ml-1'>React Chat</h1>
         <input type='text' placeholder='Write your message ...'
           onChange={(e) => setMessage(e.target.value)}
