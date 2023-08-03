@@ -16,10 +16,12 @@ export default function App() {
   }
 
   useEffect(() => {
-    socket.on('arriveMessage', (message) => {
-      setMessages([...messages, message])
+    socket.on('message', message => {
+      receiveMessage(message)
     })
-  }, [messages])
+  }, [])
+
+  const receiveMessage = (message) => setMessages((state) => [...state, message])
 
   return (
     <div>
