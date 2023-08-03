@@ -8,17 +8,24 @@ export default function App() {
 
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState([])
-
+  
   const handleSubmit = (e) => {
     e.preventDefault()
-    setMessages([...messages, message])
+
+    const newMessage = {
+      body: message,
+      from: 'Me'
+    }
+    setMessages([...messages, newMessage])
     socket.emit('message', message)
   }
 
   useEffect(() => {
-    socket.on('message', message => {
-      receiveMessage(message)
-    })
+    socket.on('message', receiveMessage)
+
+    return () => {
+      socket.off('message', receiveMessage)
+    }
   }, [])
 
   const receiveMessage = (message) => setMessages((state) => [...state, message])
@@ -34,7 +41,9 @@ export default function App() {
       </form>
       <ul>
         {messages.map((message, i) => (
-          <li key={i}>{message}</li>
+          <li key={i}>
+            {message.from}:{message.body}
+          </li>
         ))}
       </ul>
     </div>
