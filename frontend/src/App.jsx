@@ -11,13 +11,13 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    myForm.reset()
+    setMessage('')
 
     const newMessage = {
       body: message,
       from: 'Me'
     }
-    setMessages([...messages, newMessage])
+    receiveMessage(newMessage)
     socket.emit('message', message)
   }
 
@@ -34,8 +34,8 @@ export default function App() {
   return (
     <div className='h-screen bg-zinc-800 text-neutral-100 flex items-center justify-center'>
       <form id='myForm' onSubmit={handleSubmit} className='bg-zinc-900 p-10 flex flex-col gap-2 rounded-xl'>
-        <h1 className='text-2xl font-bold ml-1'>React Chat</h1>
-        <input type='text' placeholder='Write your message ...'
+        <h1 className='text-2xl font-bold ml-1'>Node Chat</h1>
+        <input type='text' value={message} placeholder='Write your message ...'
           onChange={(e) => setMessage(e.target.value)}
           className='border-none rounded-md border-zinc-500 p-2 w-full bg-zinc-800 text-neutral-100 outline-none focus:shadow-teal-800 shadow-md transition-all ease-in-out duration-500'/>
         
